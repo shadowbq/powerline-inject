@@ -1,6 +1,6 @@
 import logging
 
-import kubernetes
+import kubernetes_py as kubernetes
 import pytest
 
 import powerkube as pk
