@@ -1,4 +1,4 @@
-import kubernetes
+import kubernetes_py as kubernetes
 from powerline.theme import requires_segment_info
 
 _KUBE_SYMBOL = u'\U00002388 '
