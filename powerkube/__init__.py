@@ -6,7 +6,7 @@ _KUBE_SYMBOL = u'\U00002388 '
 
 @requires_segment_info
 def context(pl, segment_info, show_cluster=False, show_namespace=True, show_user=False,
-            alert_namespaces=()):
+            alert_namespaces=(), alert_clusters=(), warn_clusters=()):
     '''
     Return the current kubernetes context items of cluster, namespace, and/or user as separate
     segments. Uses the 'kubernetes_cluster', 'kubernetes_namespace', and 'kubernetes_user'
@@ -46,9 +46,16 @@ def context(pl, segment_info, show_cluster=False, show_namespace=True, show_user
     segments_list = []
 
     if show_cluster:
+        cluster = context.get('cluster')
+        if cluster in alert_clusters:
+            highlight_group = 'kubernetes_cluster:alert'
+        elif cluster in warn_clusters:
+            highlight_group = 'kubernetes_cluster:warn'
+        else:
+            highlight_group = 'kubernetes_cluster'
         segments_list.append(
             {'contents': context.get('cluster'),
-             'highlight_groups': ['kubernetes_cluster'],
+             'highlight_groups': [highlight_group],
              }
         )
 
