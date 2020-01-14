@@ -3,7 +3,7 @@ import logging
 import kubernetes_py as kubernetes
 import pytest
 
-import powerkube as pk
+import powerkube_fork as pk
 
 
 EXPECTED_CLUSTER = {'contents': 'foo', 'highlight_groups': ['kubernetes_cluster']}
