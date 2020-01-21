@@ -84,13 +84,13 @@ Next we'll add the highlighting colors we'll use to our `~/.config/powerline/col
 5. (Optional) By default powerline-inject will render the environment variable if `RENDER_POWERLINE_INJECTS` is either set to `YES` or is not set at all. Rather than setting this variable manually, you can create a simple `powerline-inject-toggle` function by placing the following in your `~/.bash_profile`:
 
 ```bash
-function powerline-inject-toggle() {
-    if [[ $RENDER_POWERLINE_INJECTS = "NO" ]]; then
-    export RENDER_POWERLINE_INJECTS=YES
-    else
-    export RENDER_POWERLINE_INJECTS=NO
-    fi
-}
+        function powerline-injects-toggle() {
+            if [[ $RENDER_POWERLINE_INJECTS = "NO" ]]; then
+                export RENDER_POWERLINE_INJECTS="YES"
+            else
+                export RENDER_POWERLINE_INJECTS="NO"
+            fi
+        }
 ```
 
 ## Used with `PROMPT_COMMAND` for ENV refresh

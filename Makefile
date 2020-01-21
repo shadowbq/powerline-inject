@@ -1,5 +1,11 @@
 test-upload:
-	python setup.py sdist upload -r pypitest
+	python3 setup.py sdist upload -r pypitest
 
 upload:
-	python setup.py sdist upload -r pypi
+	python3 setup.py sdist upload -r pypi
+
+install: 
+	python3 setup.py install
+
+clean:
+	python3 setup.py clean --dist --eggs --build --pycache
