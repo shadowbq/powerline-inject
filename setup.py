@@ -18,18 +18,18 @@ def version():
 # Heavily inspired by the powerline-kubernetes library written by Vincent De Smet
 # (vincent.drl@gmail.com) and located at https://github.com/so0k/powerline-kubernetes
 setup(
-    name='powerkube-fork',
+    name='powerline-inject',
     version=version(),
-    description='A powerline segment to show kubernetes context items, with toggling and alert color functionality',
+    description='A powerline segment to show a random command',
     author='Scott MacGregor',
     author_email='shadowbq@gmail.com',
-    url='https://github.com/d2iq-shadowbq/powerkube-fork',
-    download_url='https://github.com/d2iq-shadowbq/powerkube-fork/tarball/'+ version(),
-    packages=['powerkube_fork'],
+    url='https://github.com/d2iq-shadowbq/powerline-inject',
+    download_url='https://github.com/d2iq-shadowbq/powerline-inject/tarball/'+ version(),
+    packages=['powerline_inject'],
     python_requires='>=3.6',
     install_requires=INSTALL_REQUIRES,
     license='Copyright',
-    keywords=['kubernetes_py','k8s','powerline','powerkube'],
+    keywords=['powerline','powerline_inject'],
     classifiers=[
         'Programming Language :: Python :: 3',
         'Environment :: Console',
