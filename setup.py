@@ -12,6 +12,10 @@ try:
 except ImportError:
    CleanCommand = None
 
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 cmd_classes = {}
 if CleanCommand is not None:
    cmd_classes['clean'] = CleanCommand
@@ -38,6 +42,8 @@ setup(
     name='powerline-inject',
     version=version(),
     description='A powerline segment to show an ENV list with extra knobs',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Scott MacGregor',
     author_email='smacgregor@d2iq.com',
     url='https://github.com/d2iq-shadowbq/powerline-inject',
@@ -45,7 +51,7 @@ setup(
     packages=['powerline_inject'],
     python_requires='>=3.6',
     install_requires=INSTALL_REQUIRES,
-    license='Copyright',
+    license='Apache 2.0',
     keywords=['powerline','powerline_inject'],
     classifiers=[
         'Programming Language :: Python :: 3',

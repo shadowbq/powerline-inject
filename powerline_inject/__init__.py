@@ -32,6 +32,7 @@ def context(pl, segment_info, show_env=True, env_list=()):
         return []
 
     segments_list = []
+    highlight_group_default = 'powerline_inject'
 
     if show_env:
         for item in env_list: 
@@ -44,6 +45,10 @@ def context(pl, segment_info, show_env=True, env_list=()):
 
     # Add the inject symbol UNICODE :syringe: before the first segment
     first_highlight_group = segments_list[0]['highlight_groups']
+    
+    if not first_highlight_group:
+        first_highlight_group = highlight_group_default
+    
     segments_list.insert(   
                             _BEGINNING_OF_LIST, 
                             {
@@ -51,4 +56,5 @@ def context(pl, segment_info, show_env=True, env_list=()):
                                 'highlight_groups': first_highlight_group
                             }
                          )
+    
     return segments_list
