@@ -1,5 +1,6 @@
 from powerline.theme import requires_segment_info
 
+_BEGINNING_OF_LIST=0
 _INJ_SYMBOL = u'\U0001F489 '
 #:syringe:
 
@@ -31,16 +32,13 @@ def context(pl, segment_info, show_env=True, env_list=()):
     if render_injects != 'YES':
         return []
 
-    if not any([show_env]):
-        return []
-
     segments_list = []
 
     if show_env:
         for item in env_list: 
             highlight_group = 'powerline_inject'
             segments_list.append(
-            {'contents': item,
+            {'contents': segment_info['environ'].get(item) + " ",
              'highlight_groups': [highlight_group],
              }
         )
@@ -48,8 +46,11 @@ def context(pl, segment_info, show_env=True, env_list=()):
 
     # Add the inject symbol before the first segment
     first_highlight_group = segments_list[0]['highlight_groups']
-    segments_list.insert(0, {'contents': _INJ_SYMBOL,
-                             'highlight_groups': first_highlight_group
-                             }
+    segments_list.insert(   
+                            _BEGINNING_OF_LIST, 
+                            {
+                                'contents': _INJ_SYMBOL,
+                                'highlight_groups': first_highlight_group
+                            }
                          )
     return segments_list

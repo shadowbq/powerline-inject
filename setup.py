@@ -7,7 +7,6 @@ except ImportError:
     from distutils.core import setup
 
 INSTALL_REQUIRES = [
-    'kubernetes-py>=1.10.7.4',
     'powerline-status>=2.7',
     ]
 
@@ -15,8 +14,6 @@ def version():
     with open(os.path.abspath(__file__).replace('setup.py', 'version.meta'), 'r') as v:
         return v.read().replace('\n', '')
 
-# Heavily inspired by the powerline-kubernetes library written by Vincent De Smet
-# (vincent.drl@gmail.com) and located at https://github.com/so0k/powerline-kubernetes
 setup(
     name='powerline-inject',
     version=version(),
