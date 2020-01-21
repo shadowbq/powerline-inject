@@ -39,7 +39,7 @@ setup(
     version=version(),
     description='A powerline segment to show an ENV list with extra knobs',
     author='Scott MacGregor',
-    author_email='shadowbq@gmail.com',
+    author_email='smacgregor@d2iq.com',
     url='https://github.com/d2iq-shadowbq/powerline-inject',
     download_url='https://github.com/d2iq-shadowbq/powerline-inject/tarball/'+ version(),
     packages=['powerline_inject'],
