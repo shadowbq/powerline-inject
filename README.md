@@ -5,7 +5,29 @@
 [![License](https://img.shields.io/pypi/l/powerline-inject.svg)](https://pypi.python.org/pypi/powerline-inject/)
 
 powerline-inject is a [Powerline](https://github.com/powerline/powerline) segment that shows injections
-- the list of envs
+- the list of envs but with some **extra knobs**. 
+
+This can be natively done with `powerline.segments.common.env.environment` if knobs aren't needed:
+
+```json
+{
+	"segments": 
+	{
+		"left": 
+		[
+			{ "function": 
+				"powerline.segments.common.env.environment",
+				"name": "aws",
+				"priority": 20,
+				"before": "⩜ ",
+				"args": {
+					"variable": "SOME_ENV"
+				}
+			}
+		]
+	}
+}
+```
 
 Two other nifty features that it has are:
 
@@ -41,7 +63,7 @@ Within our user config, we'll need to add the powerline-inject segment to our sh
 	    "function": "powerline_inject.context",
 	    "priority": 30,
 	    "args": {"show_env": true,
-		     "env_list": ["data-prod", "infra-prod"]}
+		     "env_list": ["AWS_PROFILE", "TOKEN_X"]}
     }
 ```
 
@@ -59,7 +81,7 @@ Next we'll add the highlighting colors we'll use to our `~/.config/powerline/col
 
 4. You may need to reload powerline with `powerline-daemon --replace` to load the new settings. That's it!
 
-5. (Optional) By default powerline-inject will render the kubernetes context if the environment variable `RENDER_POWERLINE_KUBERNETES` is either set to `YES` or is not set at all. Rather than setting this variable manually, you can create a simple `kshow` function by placing the following in your `~/.bash_profile`:
+5. (Optional) By default powerline-inject will render the environment variable if `RENDER_POWERLINE_INJECTS` is either set to `YES` or is not set at all. Rather than setting this variable manually, you can create a simple `powerline-inject-toggle` function by placing the following in your `~/.bash_profile`:
 
 ```bash
 function powerline-inject-toggle() {
@@ -69,6 +91,16 @@ function powerline-inject-toggle() {
     export RENDER_POWERLINE_INJECTS=NO
     fi
 }
+```
+
+## Used with `PROMPT_COMMAND` for ENV refresh
+
+You may want to use this with a PROMPT COMMAND that updates the ENVs being checked everytime. As an example `aws-test-authentication` sets `AWS_EPOCH` and `AWS_PROFILE`.
+
+Put this in your `~/.bash_profile`
+
+```bash
+export PROMPT_COMMAND="eval \$(aws-test-authentication); $PROMPT_COMMAND"
 ```
 
 You're all set up! Happy coding!
