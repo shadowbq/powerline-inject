@@ -4,18 +4,17 @@
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/powerline-inject.svg)](https://pypi.python.org/pypi/powerline-inject/)
 [![License](https://img.shields.io/pypi/l/powerline-inject.svg)](https://pypi.python.org/pypi/powerline-inject/)
 
-powerline-inject is a [Powerline](https://github.com/powerline/powerline) segment that shows injections
-- the list of envs but with some **extra knobs**. 
+`powerline-inject` is a [Powerline](https://github.com/powerline/powerline) status segment addon for showing ENV with extra knobs.
 
 This can be natively done with `powerline.segments.common.env.environment` if knobs aren't needed:
 
 ```json
 {
-	"segments": 
+	"segments":
 	{
-		"left": 
+		"left":
 		[
-			{ "function": 
+			{ "function":
 				"powerline.segments.common.env.environment",
 				"name": "aws",
 				"priority": 20,
@@ -29,14 +28,15 @@ This can be natively done with `powerline.segments.common.env.environment` if kn
 }
 ```
 
-Two other nifty features that it has are:
+Couple knobs featured that `powerline-inject` has are:
 
 1. The ability to toggle on or off the powerline-inject segment using an environment variable which can easily be mapped to a function in your `~/.bash_profile`.
-2. The ability to run additional commands prior to loading
+2. The ability to show only a symbol when the variables holds value. (SECRET KEYS, TOKENS, etc.)
+3. Multiple different highlighter profiles for your ENV lists.
 
 The screenshot below demonstrates this functionality:
 
-<img src="usage_screenshot.png" width="800">
+[![screenshot](usage_screenshot.png)](https://pypi.org/project/powerline-inject/)
 
 ## Installation
 
@@ -62,8 +62,10 @@ Within our user config, we'll need to add the powerline-inject segment to our sh
     {
 	    "function": "powerline_inject.context",
 	    "priority": 30,
-	    "args": {"show_env": true,
-		     "env_list": ["AWS_PROFILE", "TOKEN_X"]}
+	    "args": {
+			"show_env": true,
+			"env_list": ["AWS_PROFILE", "TOKEN_X"]
+		}
     }
 ```
 
@@ -73,13 +75,13 @@ Next we'll add the highlighting colors we'll use to our `~/.config/powerline/col
     {
 	    "name": "Default",
 	    "groups": {
-		    "powerline_inject": { "fg": "white", "bg": "brightred", "attrs": [] },
+			"powerline_inject": { "fg": "white", "bg": "red", "attrs": [] },
+			"powerline_inject_bold": { "fg": "white", "bg": "brightred", "attrs": [] },
 	    }
     }
 ```
 
-
-4. You may need to reload powerline with `powerline-daemon --replace` to load the new settings. That's it!
+4. You will need to reload powerline with `powerline-daemon --replace` to load the new settings. That's it!
 
 5. (Optional) By default powerline-inject will render the environment variable if `RENDER_POWERLINE_INJECTS` is either set to `YES` or is not set at all. Rather than setting this variable manually, you can create a simple `powerline-inject-toggle` function by placing the following in your `~/.bash_profile`:
 
@@ -91,6 +93,37 @@ Next we'll add the highlighting colors we'll use to our `~/.config/powerline/col
                 export RENDER_POWERLINE_INJECTS="NO"
             fi
         }
+```
+
+## Confidential ENV use
+
+You may find you want to know when you have **SECRETS** loaded into your **ENVIRONMENT**. This will show only a symbol `⩜` when the `SECRET_TOKEN` or `AWS_PROFILE` is loaded.
+
+```json
+	{
+		"function": "powerline_inject.context",
+		"priority": 30,
+		"args": {
+			"show_env": false,
+			"env_list": ["SECRET_TOKEN", "AWS_PROFILE"],
+			"before": "⩜ "
+		}
+	},
+```
+
+You can further add a second call to `powerline_inject.context` with a different `before` symbol and/or `env_highlighter` in args like the `powerline_inject_bold` defined above.
+
+```json
+	{
+		"function": "powerline_inject.context",
+		"priority": 30,
+		"name": "second_injection",
+		"args": {
+			"show_env": false,
+			"env_list": ["SECRET_TOKEN", "AWS_PROFILE"],
+			"env_highlighter": "powerline_inject_bold"
+		}
+	},
 ```
 
 ## Used with `PROMPT_COMMAND` for ENV refresh
